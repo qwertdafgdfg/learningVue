@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <div>
+      <span>名：</span>
+      <span>
+        <input type="text" v-model='firstName'>
+      </span>
+    </div>
+    <div>
+      <span>姓：</span>
+      <span>
+        <input type="text" v-model='lastName'>
+      </span>
+    </div>
+    <div>{{fullName}}</div>
+  </div>
+  <script type="text/javascript" src="js/vue.js"></script>
+  <script type="text/javascript">
+    /*
+      侦听器
+    */
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        firstName: 'Jim',
+        lastName: 'Green',
+         fullName: 'Jim Green'
+      },
+      computed: {//计算属性来实现监听器的功能。双向数据绑定，页面数据变化程序也会执行这个代码。
+        // fullName: function(){
+        //   return this.firstName + ' ' + this.lastName;
+        // }
+      },
+      watch: {
+        //函数的名字必须和data里面的name保持一致。        data数据发生改变，这个侦听会被触发。
+        firstName: function(val) {
+          this.fullName = val + ' ' + this.lastName;
+        },
+        lastName: function(val) {
+          this.fullName = this.firstName + ' ' + val;
+        }
+      }
+    });
+  </script>
+</body>
+</html>

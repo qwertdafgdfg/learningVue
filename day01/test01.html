@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style type="text/css">
+        .active {
+            border: 1px solid red;
+            width: 100px;
+            height: 100px;
+        }
+        
+        .error {
+            background-color: orange;
+        }
+        
+        .test {
+            color: blue;
+        }
+        
+        .base {
+            font-size: 28px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="base" v-bind:class='objClasses'>9999999999999999999</div>
+        <!-- 上面div的效果和下面的效果是一样的。 上面经过浏览器解析就变成下面这个样子的了-->
+        <div class="base active error">9999999999999999999</div>
+        <button v-on:click='handle'>切换</button>
+    </div>
+    <script type="text/javascript" src="js/vue.js"></script>
+    <script type="text/javascript">
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                objClasses: {
+                    active: true,
+                    error: true
+                }
+            },
+            methods: {
+                handle: function() {
+                    // this.isTest = false;
+                    this.objClasses.error = false;
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style type="text/css">
+        .active {
+            border: 1px solid red;
+            width: 100px;
+            height: 100px;
+        }
+        
+        .error {
+            background-color: orange;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 使用F12查看这个div其实拥有了多个class类名，通过js逻辑控制具体显示哪个class ，可以多个class共存-->
+        <div v-bind:class='[activeClass, errorClass]'>测试样式</div>
+        <button v-on:click='handle'>切换</button>
+        <button v-on:click='handle2'>切换2</button>
+        <button v-on:click='handle3'>切换3</button>
+        <button v-on:click='handle4'>切换4</button>
+    </div>
+    <script type="text/javascript" src="js/vue.js"></script>
+    <script type="text/javascript">
+        /*
+                                 样式绑定
+                                */
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                activeClass: 'active',
+                errorClass: 'error',
+            },
+            methods: {
+                handle: function() {
+                    this.activeClass = ''; //数组的方式是改变值的内容即Css的类名。， 而对象方式是改变值的true和false。
+                    this.errorClass = '';
+                },
+            }
+        });
+    </script>
+</body>
+
+</html>

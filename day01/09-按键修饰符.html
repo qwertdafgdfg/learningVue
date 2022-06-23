@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <form action="">
+            <div>
+                用户名：
+                <input type="text" v-on:keyup.delete='clearContent' v-model='uname'>
+            </div>
+            <div>
+                密码：
+                <input type="text" v-on:keyup.f1='handleSubmit' v-model='pwd'>
+            </div>
+            <div>
+                <input type="button" v-on:click='handleSubmit' value="提交">
+            </div>
+            <div>
+                <input type="text" v-on:keyup.enter.space="alterMe()">
+            </div>
+        </form>
+    </div>
+    <script type="text/javascript" src="js/vue.js"></script>
+    <script type="text/javascript">
+        /*
+                         常用的按键修饰符
+                .enter => enter键
+                .tab => tab键
+                .delete (捕获“删除”和“退格”按键) => 删除键
+                .esc => 取消键
+                .space => 空格键
+                .up => 上
+                .down => 下
+                .left => 左
+                .right => 右
+                         */
+        Vue.config.keyCodes.f1 = 116
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                uname: '',
+                pwd: '',
+                age: 0
+            },
+            methods: {
+                clearContent: function() {
+                    // 按delete键的时候，清空用户名
+                    this.uname = '';
+                },
+                handleSubmit: function() {
+                    console.log(this.uname, this.pwd)
+                },
+                alterMe: function() {
+                    console.log(this.age + this.pwd);
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

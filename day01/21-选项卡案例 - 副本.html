@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style type="text/css">
+        .tab ul {
+            overflow: hidden;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .tab ul li {
+            box-sizing: border-box;
+            padding: 0;
+            float: left;
+            width: 100px;
+            height: 45px;
+            line-height: 45px;
+            list-style: none;
+            text-align: center;
+            border-top: 1px solid blue;
+            border-right: 1px solid blue;
+            cursor: pointer;
+        }
+        
+        .tab ul li:first-child {
+            border-left: 1px solid blue;
+        }
+        
+        .tab ul li.active {
+            background-color: orange;
+        }
+        
+        .tab div {
+            width: 500px;
+            height: 300px;
+            display: none;
+            text-align: center;
+            font-size: 30px;
+            line-height: 300px;
+            border: 1px solid blue;
+            border-top: 0px;
+        }
+        
+        .tab div.current {
+            /* 作为块元素； 另起一行。 */
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <p>
+            增加tab栏 <input type="text">
+        </p>
+        <div class="tab">
+            <!-- div里面是行级元素。             active 让选中的高亮，橘色。   动态的显示style 。-->
+            <ul>
+                <!-- 这个list是vue的data中的数据 list拿到的是相应div通过id的下面所有节点。     这个li是对应的选项卡。-->
+                <!-- v-on绑定事件 -->
+                <li v-on:click='change(index)' :class='currentIndex==index?"active":""' :key='item.id' v-for='(item,index) in list'>{{item.title}}</li>
+            </ul>
+            <!-- 将data数据里面的图片路径填充到src中去。 -->
+            <div :class='currentIndex==index?"current":""' :key='item.id' v-for='(item, index) in list'>
+                <!-- 这个img里面加上: 是属性的绑定。表示""里面的内容不是字符串，而是变量。 : 号是v-bind的简写。-->
+                <img :src="item.path">
+            </div>
+            <ul>
+                <li>First item</li>
+                <li>Next item</li>
+            </ul>
+            <div>
+                <ul>
+                    <li>First item</li>
+                    <li>Next item</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="js/vue.js"></script>
+    <script type="text/javascript">
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                currentIndex: 0, // 选项卡当前的索引,来控制当前的类名。
+                list: [{
+                    id: 1,
+                    title: 'apple',
+                    path: 'img/apple.png'
+                }, {
+                    id: 2,
+                    title: 'orange',
+                    path: 'img/orange.png'
+                }, {
+                    id: 3,
+                    title: 'lemon',
+                    path: 'img/lemon.png'
+                }]
+            },
+            methods: {
+                change: function(index) {
+                    // 在这里实现选项卡切换操作：本质就是操作类名
+                    // 如何操作类名？就是通过currentIndex
+                    this.currentIndex = index;   //点哪个tap，就会给哪个tap的索引。
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
