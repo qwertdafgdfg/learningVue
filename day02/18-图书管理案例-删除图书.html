@@ -67,6 +67,7 @@
             <td>
               <a href="" @click.prevent='toEdit(item.id)'>修改</a>
               <span>|</span>
+              <!-- 6.1 给删除按钮添加事件 把当前需要删除的书籍id 传递过来 -->
               <a href="" @click.prevent='deleteBook(item.id)'>删除</a>
             </td>
           </tr>
@@ -152,9 +153,17 @@
           // });
           // 根据索引删除数组元素
           // this.books.splice(index, 1);
-          // -------------------------
+          // -------------------------             引用，都是直接影响了原来的指针指向的数组。
           // 方法二：通过filter方法进行删除
+          let that = this;
+
+          // # 6.4 根据filter 方法 过滤出来id 不是要删除书籍的id
+          // # 因为 filter 是替换数组不会修改原始数据 所以需要 把 不是要删除书籍的id 赋值给 books
           this.books = this.books.filter(function(item){
+            console.log("----"+this.id.value);//拿到这个控件里面的值。文本框中的值。
+            console.log("----"+id);//这个id是列表中用户选择的那个元素的ID。
+
+            //其实是过滤数据，更新原来的数据。重新渲染页面。
             return item.id != id;
           });
         }

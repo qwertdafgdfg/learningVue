@@ -3,6 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <title>Document</title>
+  <!-- 过滤器详解：
+   1Vue.js允许自定义过滤器，可被用于一些常见的文本格式化。
+2过滤器可以用在两个地方：双花括号插值和v-bind表达式。
+3过滤器应该被添加在JavaScript表达式的尾部，由“管道”符号指示
+4支持级联操作
+5过滤器不改变真正的 data ，而只是改变渲染的结果，并返回过滤后的版本
+6全局注册时是filter，没有s的。而局部过滤器是filters，是有s的
+  -->
 </head>
 <body>
   <div id="app">
@@ -28,7 +36,7 @@
     //   return val.charAt(0).toUpperCase() + val.slice(1);
     // });
     Vue.filter('lower', function(val) {
-      // 自定义过滤器
+      // 自定义过滤器   ，，lower 为全局过滤器
       return val.charAt(0).toLowerCase() + val.slice(1);//首字母小写
     });
     var vm = new Vue({
@@ -36,8 +44,11 @@
       data: {
         msg: ''
       },
+      // 定义filters 中的过滤器为局部过滤器
       filters: {
         // 局部过滤器
+        // upper 自定义的过滤器名字
+// upper 被定义为接收单个参数的过滤器函数，表达式 msg 的值将作为参数传入到函数中
         upper: function(val) {
             //  过滤器中一定要有返回值 这样外界使用过滤器的时候才能拿到结果
           return val.charAt(0).toUpperCase() + val.slice(1);//首字母大写

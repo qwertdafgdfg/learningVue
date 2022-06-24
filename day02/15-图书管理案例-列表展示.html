@@ -38,11 +38,14 @@
           </tr>
         </thead>
         <tbody>
-          <tr :key='item.id' v-for='item in books'>
+          <!-- 利用 v-for循环 遍历 books 将每一项数据渲染到对应的数据中 -->
+          <tr :key='item.id' v-for='item in bookssss'>
             <td>{{item.id}}</td>
+            <!-- 对应的name 渲染到页面上 -->
             <td>{{item.name}}</td>
             <td>{{item.date}}</td>
             <td>
+              <!-- 阻止 a 标签的默认跳转 -->
               <a href="" @click.prevent>修改</a>
               <span>|</span>
               <a href="" @click.prevent>删除</a>
@@ -58,11 +61,13 @@
       图书管理-图书列表展示功能
       注意事项：<a href="" @click.prevent>修改</a>
       事件绑定时，可以只添加修饰符，而不绑定事件函数
+
+
     */
     var vm = new Vue({
       el: '#app',
       data: {
-        books: [{
+        bookssss: [{
           id: 1,
           name: '三国演义',
           date: ''
@@ -78,6 +83,11 @@
           id: 4,
           name: '西游记',
           date: ''
+        }
+        ,{
+          id: 5,
+          name: '西xx游记',
+          date: '--00--00--'
         }]
       }
     });

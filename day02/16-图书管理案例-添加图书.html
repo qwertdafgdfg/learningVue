@@ -38,14 +38,19 @@
         <h1>图书管理</h1>
         <div class="book">
           <div>
+            <!-- for 属性规定 label 与哪个表单元素绑定。
+作用是 在点击label  时  会自动将焦点移动到绑定的 元素上 -->
             <label for="id">
               编号：
             </label>
+            <!-- 3.1、通过双向绑定获取到输入框中的输入的 id -->
             <input type="text" id="id" v-model='id'>
             <label for="name">
               名称：
             </label>
+            <!-- 3.2、通过双向绑定获取到输入框中的输入的 name -->
             <input type="text" id="name" v-model='name'>
+            <!-- 3.3、给按钮添加点击事件 -->
             <button @click='handle'>提交</button>
           </div>
         </div>
@@ -78,6 +83,9 @@
   <script type="text/javascript">
     /*
       图书管理-添加图书
+      1通过双向绑定获取到输入框中的输入内容
+      2给按钮添加点击事件
+      3把输入框中的数据存储到 data 中的 books 里面
     */
     var vm = new Vue({
       el: '#app',
@@ -105,12 +113,14 @@
       methods: {
         handle: function(){
           // 添加图书
+          // 3.4 定义一个新的对象book 存储 获取到输入框中 书 的id和名字
           var book = {};
           book.id = this.id;
           book.name = this.name;
           book.date = '';
+          //// 3.5 把book 通过数组的变异方法 push 放到 books 里面
           this.books.push(book);
-          // 清空表单
+          // 清空表单..//3.6 清空输入框
           this.id = '';
           this.name = '';
         }
