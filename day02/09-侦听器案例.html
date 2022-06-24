@@ -9,6 +9,8 @@
     <div>
       <span>用户名：</span>
       <span>
+        <!-- 将input输入的值，当参数传入这个侦听器中。 -->
+        <!-- 鼠标离开这个控件后，发生的事件。v-model.lazy， 配合监听来使用。 监听uname这个值是否变化了-->
         <input type="text" v-model.lazy='uname'>
       </span>
       <span>{{tip}}</span>
@@ -21,6 +23,8 @@
       1、采用侦听器监听用户名的变化
       2、调用后台接口进行验证
       3、根据验证的结果调整提示信息
+
+            允许开发者监视数据的变化，从⽽针对数据的变化做特定的操作
     */
     var vm = new Vue({
       el: '#app',
