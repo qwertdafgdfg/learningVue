@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+
+    <!-- 2、 组件使用 组件名称 是以HTML标签的形式使用 -->
+
+    <!--
+4、 组件可以重复使用多次
+因为data中返回的是一个对象所以每个组件中的数据是私有的
+即每个实例可以维护一份被返回对象的独立的拷贝
+-->
+    <div class="1">
+      <button-counter>aaa</button-counter>
+aaaaa
+    </div>
+    <div class="2">
+    <button-counter>sss</button-counter>
+      zzzz
+    </div>
+    <div class="3">
+    <button-counter>ddd</button-counter>
+      dddd
+    </div>
+
+  </div>
+  <script type="text/javascript" src="js/vue.js"></script>
+  <script type="text/javascript">
+    /*
+      全局组件注册
+    */
+   // 1、 my-component 就是组件中自定义的标签名
+
+//    组件参数的data值必须是函数同时这个函数要求返回一个对象
+// 组件模板必须是单个根元素
+// 组件模板的内容可以是模板字符串
+    Vue.component('button-counter', {
+      data: function(){
+        return {
+          count: 0
+        }
+      },
+      template: '<button @click="handle">点击了{{count}}次</button>',
+      methods: {
+        handle: function(){
+          this.count += 2;
+        }
+      }
+    })
+
+    // 创建根实例
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        
+      }
+    });
+  </script>
+</body>
+</html>

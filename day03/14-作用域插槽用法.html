@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<style type="text/css">
+  .current {
+    color: orange;
+  }
+</style>
+<body>
+  <div id="app">
+<!--
+1、当我们希望li 的样式由外部使用组件的地方定义，因为可能有多种地方要使用该组件，
+但样式希望不一样 这个时候我们需要使用作用域插槽
+-->
+
+    <fruit-list :list=this.list>
+
+      <!-- 2、 父组件中使用了template元素,而且包含scope="slotProps",
+slotProps在这里只是临时变量 -->
+
+      <template slot-scope='slotProps'>
+        <strong v-if='slotProps.info.id==2' class="current">{{slotProps.info.name}}</strong>
+        <span v-else>{{slotProps.info.name}}</span>
+        {{slotProps.info}}
+        {{slotProps}}
+
+        <!-- template标签里面的内容会替换掉slot里面的内容 -->
+      </template>
+    </fruit-list>
+  </div>
+  <script type="text/javascript" src="js/vue.js"></script>
+  <script type="text/javascript">
+    /*
+      作用域插槽应用场景：父组件对子组件的内容进行加工处理
+    */
+    Vue.component('fruit-list', {
+      props: ['list'],
+      template: `
+        <div>
+          <li :key='item.id' v-for='item in list'>
+
+   <!--         ### 3、 在子组件模板中,<slot>元素上有一个类似props传递数据给组件的写法msg="xxx",
+### 插槽可以提供一个默认内容，如果如果父组件没有为这个插槽提供了内容，会显示默认的内容。
+如果父组件为这个插槽提供了内容，则默认的内容会被替换掉     -->
+
+            <slot :info='item'>{{item.name}}</slot>
+          </li>
+        </div>
+      `
+    });
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        list: [{
+          id: 1,
+          name: 'apple'
+        },{
+          id: 2,
+          name: 'orange'
+        },{
+          id: 3,
+          name: 'banana'
+        }]
+      }
+    });
+  </script>
+</body>
+</html>

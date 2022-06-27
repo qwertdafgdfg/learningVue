@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <!-- 这里的所有组件标签中嵌套的内容会替换掉slot 如果不传值 则使用 slot 中的默认值 -->
+    <alert-box>有bug发生</alert-box>
+    <alert-box>有一个警告</alert-box>
+    <alert-box></alert-box>
+  </div>
+  <script type="text/javascript" src="js/vue.js"></script>
+  <script type="text/javascript">
+    /*
+      组件插槽：父组件向子组件传递内容
+    */
+    Vue.component('alert-box', {
+      template: `
+        <div>
+          <!--   # 当组件渲染的时候，这个 <slot> 元素将会被替换为“组件标签中嵌套的内容”。
+# 插槽内可以包含任何模板代码，包括 HTML -->
+          <strong>ERROR:</strong>
+          <slot>默认内容</slot>
+        </div>
+      `
+    });
+
+
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        
+      }
+    });
+  </script>
+</body>
+</html>
