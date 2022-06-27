@@ -99,6 +99,7 @@
         <div class="title">{{uname}}的商品</div>
       `
     }
+
     var CartList = {
       props: ['list'],
       template: `
@@ -108,6 +109,8 @@
             <div class="name">{{item.name}}</div>
             <div class="change">
               <a href="">－</a>
+              <!--   1/将输入框中的默认数据动态渲染出来
+              2. 输入框失去焦点的时候 更改商品的数量 需要将当前商品的id 传递过来   -->
               <input type="text" class="num" :value='item.num' @blur='changeNum(item.id, $event)'/>
               <a href="">＋</a>
             </div>
@@ -117,6 +120,8 @@
       `,
       methods: {
         changeNum: function(id, event){
+          // 3 子组件中不推荐操作数据 因为别的组件可能也引用了这些数据
+          // 把这些数据传递给父组件 让父组件处理这些数据
           this.$emit('change-num', {
             id: id,
             num: event.target.value
@@ -128,6 +133,7 @@
         }
       }
     }
+
     var CartTotal = {
       props: ['list'],
       template: `
@@ -147,6 +153,7 @@
         }
       }
     }
+
     Vue.component('my-cart',{
       data: function() {
         return {
@@ -187,6 +194,8 @@
       template: `
         <div class='cart'>
           <cart-title :uname='uname'></cart-title>
+
+          <!-- 4 父组件中接收子组件传递过来的数据 -->
           <cart-list :list='list' @change-num='changeNum($event)' @cart-del='delCart($event)'></cart-list>
           <cart-total :list='list'></cart-total>
         </div>
@@ -198,7 +207,7 @@
       },
       methods: {
         changeNum: function(val) {
-          // 根据子组件传递过来的数据，跟新list中对应的数据
+          // 根据子组件传递过来的数据，更新list中对应的数据
           this.list.some(item=>{
             if(item.id == val.id) {
               item.num = val.num;
@@ -218,6 +227,7 @@
         }
       }
     });
+
     var vm = new Vue({
       el: '#app',
       data: {

@@ -99,6 +99,8 @@
         <div class="title">{{uname}}的商品</div>
       `
     }
+
+    // 3.2 把列表数据动态渲染到页面上
     var CartList = {
       props: ['list'],
       template: `
@@ -111,17 +113,24 @@
               <input type="text" class="num" />
               <a href="">＋</a>
             </div>
-            <div class="del" @click='del(item.id)'>×</div>
+
+            <!-- 3.3 给按钮添加点击事件把需要删除的id传递过来  -->
+            <div class="del" @click='del(item.id)'> × </div>
           </div>
         </div>
       `,
       methods: {
         del: function(id){
-          // 把id传递给父组件
+          // 把id传递给父组件,cart-del  这个是父组件的v-on监听的事件。
+
+          // 3.4 子组件中不推荐操作父组件的数据有可能多个子组件使用父组件的数据
+          // 我们需要把数据传递给父组件 让父组件操作数据
           this.$emit('cart-del', id);
         }
       }
     }
+
+
     var CartTotal = {
       props: ['list'],
       template: `
@@ -178,9 +187,12 @@
           }]
         }
       },
+
+      // 从父组件把商品列表list 数据传递过来 即 父向子组件传值
       template: `
         <div class='cart'>
           <cart-title :uname='uname'></cart-title>
+          <!-- 父组件通过事件绑定 接收子组件传递过来的数据   和  点击事件。  -->
           <cart-list :list='list' @cart-del='delCart($event)'></cart-list>
           <cart-total :list='list'></cart-total>
         </div>
@@ -191,6 +203,15 @@
         'cart-total': CartTotal
       },
       methods: {
+
+        // 从父组件把商品列表list 数据传递过来 即 父向子组件传值
+        // 把传递过来的数据渲染到页面上
+        // 点击删除按钮的时候删除对应的数据
+        //       给按钮添加点击事件把需要删除的id传递过来
+        //           子组件中不推荐操作父组件的数据有可能多个子组件使用父组件的数据 我们需要把数据传递给父组
+        //           件让父组件操作数据
+        //           父组件删除对应的数据
+
         delCart: function(id) {
           // 根据id删除list中对应的数据
           // 1、找到id所对应数据的索引

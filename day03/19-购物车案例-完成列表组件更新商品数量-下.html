@@ -107,6 +107,9 @@
             <img :src="item.img"/>
             <div class="name">{{item.name}}</div>
             <div class="change">
+
+            <!--  1. + - 按钮绑定事件-->
+
               <a href="" @click.prevent='sub(item.id)'>－</a>
               <input type="text" class="num" :value='item.num' @blur='changeNum(item.id, $event)'/>
               <a href="" @click.prevent='add(item.id)'>＋</a>
@@ -124,12 +127,20 @@
           });
         },
         sub: function(id){
+
+//           2 数量的增加和减少通过父组件来计算 每次都是加1 和 减1 不需要传递数量 父组件需要一个类型来
+// 判断 是 加一 还是减1 以及是输入框输入的数据 我们通过type 标识符来标记 不同的操作
+
           this.$emit('change-num', {
             id: id,
             type: 'sub'
           });
         },
         add: function(id){
+
+//           2 数量的增加和减少通过父组件来计算 每次都是加1 和 减1 不需要传递数量 父组件需要一个类型来判
+// 断 是 加一 还是减1 以及是输入框输入的数据 我们通过type 标识符来标记 不同的操作
+
           this.$emit('change-num', {
             id: id,
             type: 'add'
@@ -200,6 +211,7 @@
       template: `
         <div class='cart'>
           <cart-title :uname='uname'></cart-title>
+          <!-- 3 父组件通过事件监听 接收子组件的数据 -->
           <cart-list :list='list' @change-num='changeNum($event)' @cart-del='delCart($event)'></cart-list>
           <cart-total :list='list'></cart-total>
         </div>
@@ -213,7 +225,7 @@
         changeNum: function(val) {
           // 分为三种情况：输入域变更、加号变更、减号变更
           if(val.type=='change') {
-            // 根据子组件传递过来的数据，跟新list中对应的数据
+            // 根据子组件传递过来的数据，更新list中对应的数据
             this.list.some(item=>{
               if(item.id == val.id) {
                 item.num = val.num;
